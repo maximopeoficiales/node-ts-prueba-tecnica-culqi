@@ -13,8 +13,8 @@ const startServer = async () => {
   const app = express();
   await expressLoader(app);
 
-  app.listen(apiConfig.port, () => {
-    console.log(`Listening ${apiConfig.name} on port ${apiConfig.port}!`);
+  app.listen(apiConfig.APP_PORT, () => {
+    console.log(`Listening ${apiConfig.NAME} on port ${apiConfig.APP_PORT}!`);
   });
 
   // } else {
