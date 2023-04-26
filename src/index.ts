@@ -1,8 +1,7 @@
-import "reflect-metadata";
 
 import { apiConfig } from "./config";
 import express from 'express';
-import { init } from "./app/infrastructure/webApi/loaders";
+import { expressLoader } from "./app/infrastructure/webApi/loaders/express";
 // import { instanceSqlServer } from "./app/infrastructure/database/gitcardMssql/SqlServer";
 
 const startServer = async () => {
@@ -11,12 +10,12 @@ const startServer = async () => {
   // if (connectionSqlServer) {
   //   console.log("Connected to SqlServer");
 
-    const app = express();
-    await init(app);
+  const app = express();
+  await expressLoader(app);
 
-    app.listen(apiConfig.port, () => {
-      console.log(`Listening ${apiConfig.name} on port ${apiConfig.port}!`);
-    });
+  app.listen(apiConfig.port, () => {
+    console.log(`Listening ${apiConfig.name} on port ${apiConfig.port}!`);
+  });
 
   // } else {
   //   console.log("Error connecting to SqlServer");

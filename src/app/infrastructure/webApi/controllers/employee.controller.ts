@@ -2,12 +2,10 @@ import { Request, Response } from "express";
 import HttpStatusCode from "../../shared/httpStatusCode";
 import { injectable } from 'tsyringe';
 import { container } from "tsyringe";
-import { employesService, EmployesService } from "../../../application/use_cases/employes.service";
 import { ErrorResponse } from "../../shared/errorResponse";
 @injectable()
 export class EmployeeController {
     constructor(
-        private service: EmployesService
     ) {
 
     }
@@ -23,13 +21,7 @@ export class EmployeeController {
             throw new ErrorResponse(HttpStatusCode.NOT_FOUND, "Employees not found");
 
         } catch (error) {
-            console.log(error);
-            return res.status(error.errorCode || HttpStatusCode.INTERNAL_SERVER_ERROR).send({
-                errorCode: error.errorCode || "serviceNotAvailable",
-                errorMessage: error.message || "Internal Server Error",
-                status: false,
-                errors: ""
-            });
+
         }
 
     }

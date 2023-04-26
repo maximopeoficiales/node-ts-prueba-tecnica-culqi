@@ -5,7 +5,7 @@
 
 /dist
 package-lock.json
-
+yarn.lock
 # User-specific files
 *.suo
 *.user
