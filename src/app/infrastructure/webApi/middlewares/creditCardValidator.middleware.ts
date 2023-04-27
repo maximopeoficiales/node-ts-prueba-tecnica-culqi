@@ -6,8 +6,9 @@ import { CardType } from "../../../domain/enums/card-type.enum";
 const currentYear = (new Date()).getFullYear();
 const maximumYearCurrent = parseInt(config.APP_MAXIMUM_YEAR_CURRENT.toString());
 
-export const creditCardSchema = {
+export const creditCardBodySchema = {
   [Segments.BODY]: Joi.object().keys({
+    pk_token: Joi.string().trim(),
     type_card: Joi.string().trim(),
     email: Joi.string().trim().email().min(5).max(100).regex(/^[a-zA-Z0-9._%+-]+@(gmail|hotmail|yahoo)\.(com|es)$/).required().label("El campo email es requerido y debe cumplir con el formato establecido"),
     expiration_year: Joi.number().positive().min(2000).max(currentYear + maximumYearCurrent).required().label("El campo expiration_year debe cumplir con el formato establecido"),
@@ -27,4 +28,4 @@ export const creditCardSchema = {
       .label("El campo card_number es requerido y debe cumplir con el formato establecido"),
   })
 }
-export const creditCardValidator = () => celebrate(creditCardSchema);
+export const creditCardValidator = () => celebrate(creditCardBodySchema);

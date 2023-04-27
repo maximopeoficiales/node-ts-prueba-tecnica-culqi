@@ -25,6 +25,8 @@ export class CreditCardService {
     const result = await this.jwtService.verify<IToken>(token);
     const creditCard = this.criptoService.decrypt<CreditCardDto>(result.token);
     delete creditCard.cvv
+    delete creditCard.pk_token
+    delete creditCard.type_card
     return creditCard;
   }
 
