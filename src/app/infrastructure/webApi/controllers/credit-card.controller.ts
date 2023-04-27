@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { CreditCardService, } from "../../../application/use_cases/credit-card.service";
 import { CreditCardDto } from "../../../domain/dtos/credit-card.dto";
 import { log } from "../../shared/log";
+
+
 export class CreditCardController {
     constructor(
         private creditCardService = new CreditCardService(),
