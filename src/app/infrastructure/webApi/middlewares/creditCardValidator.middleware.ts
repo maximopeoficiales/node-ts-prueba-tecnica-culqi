@@ -2,9 +2,12 @@ import { Joi, Segments, celebrate } from "celebrate";
 import luhn from "luhn";
 import { config } from "../../../../config";
 import { CardType } from "../../../domain/enums/card-type.enum";
+import { log } from "../../shared/log";
 
 const currentYear = (new Date()).getFullYear();
-const maximumYearCurrent = parseInt(config.APP_MAXIMUM_YEAR_CURRENT.toString());
+log(config.APP_MAXIMUM_YEAR_CURRENT)
+const maximumYearCurrent = parseInt(config.APP_MAXIMUM_YEAR_CURRENT);
+log(maximumYearCurrent)
 
 export const creditCardBodySchema = {
   [Segments.BODY]: Joi.object().keys({
