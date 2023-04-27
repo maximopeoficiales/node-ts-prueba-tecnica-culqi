@@ -1,5 +1,6 @@
 import { config } from "../../../config";
 import { CreditCardDto } from "../../domain/dtos/credit-card.dto";
+import { log } from "../../infrastructure/shared/log";
 import { JwtService } from "./jwt.service";
 import { TokenizationService } from "./tokenization.service";
 
@@ -15,9 +16,10 @@ export class CreditCardService {
   }
   async tokenizate(creditCardDto: CreditCardDto) {
     const creditCardToken = this.criptoService.encrypt<CreditCardDto>(creditCardDto);
-    console.log({ creditCardToken });
-    const token = this.jwtService.sign<IToken>({ token: creditCardToken }, { expiresIn: config.APP_SECRET_JWT_LIMIT });
-    return token;
+    log(`Encriptacion: `, { creditCardToken });
+    const jwtToken = this.jwtService.sign<IToken>({ token: creditCardToken }, { expiresIn: config.APP_SECRET_JWT_LIMIT });
+    log(`TokenJWT: `, { jwtToken });
+    return jwtToken;
   }
   async getCreditCard(token: string) {
     const result = await this.jwtService.verify<IToken>(token);

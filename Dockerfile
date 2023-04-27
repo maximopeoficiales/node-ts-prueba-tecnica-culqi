@@ -1,8 +1,13 @@
-FROM node:16-alpine
+FROM node:lts-alpine
+RUN addgroup -S nonroot \
+    && adduser -S nonroot -G nonroot
 WORKDIR /srv/app
-COPY . .
+COPY package.json ./
+COPY tsconfig.json ./
+COPY src ./src
+
 RUN npm install
 RUN npm run build
 EXPOSE 3001
-
-CMD [ "node", "dist" ]
+USER nonroot
+CMD ["node", "dist"]
