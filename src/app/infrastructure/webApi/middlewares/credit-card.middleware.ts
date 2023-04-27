@@ -1,8 +1,8 @@
 import { Joi, Segments, celebrate } from "celebrate";
-import { apiConfig } from "../../../../config";
+import { config } from "../../../../config";
 
 const currentYear = (new Date()).getFullYear();
-const maximumYearCurrent = parseInt(apiConfig.MAXIMUM_YEAR_CURRENT.toString());
+const maximumYearCurrent = parseInt(config.APP_MAXIMUM_YEAR_CURRENT.toString());
 export const creditCardSchema = {
   [Segments.BODY]: Joi.object().keys({
     email: Joi.string().trim().email().max(100).required().label("El campo email es requerido y debe cumplir con el formato establecido"),

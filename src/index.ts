@@ -1,5 +1,5 @@
 
-import { apiConfig } from "./config";
+import { config } from "./config";
 import express from 'express';
 import { expressLoader } from "./app/infrastructure/webApi/loaders/express";
 // import { instanceSqlServer } from "./app/infrastructure/database/gitcardMssql/SqlServer";
@@ -13,8 +13,8 @@ const startServer = async () => {
   const app = express();
   await expressLoader(app);
 
-  app.listen(apiConfig.APP_PORT, () => {
-    console.log(`Listening ${apiConfig.NAME} on port ${apiConfig.APP_PORT}!`);
+  app.listen(config.APP_PORT, () => {
+    console.log(`Listening ${config.APP_NAME} on port ${config.APP_PORT}! http://localhost:${config.APP_PORT}/api`);
   });
 
   // } else {
