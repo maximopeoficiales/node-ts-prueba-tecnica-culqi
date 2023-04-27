@@ -22,20 +22,24 @@ export class CreditCardService {
     return creditCard;
   }
 
-  async getTokens(){
+  async getTokens() {
     return await this.tokenizationService.getAll();
   }
   async tokenizate(creditCardDto: CreditCardDto) {
     const creditCardToken = this.criptoService.encrypt<CreditCardDto>(creditCardDto);
     log(`Encriptacion: `, { creditCardToken });
-    const tokenizationCreated = await this.tokenizationService.create({ ...creditCardDto, token: creditCardToken })
-    log("Creado en mongo", { tokenizationCreated })
+
     const jwtToken = this.jwtService.sign<IToken>({ token: creditCardToken }, { expiresIn: config.APP_SECRET_JWT_LIMIT });
     log(`TokenJWT: `, { jwtToken });
-    return jwtToken;
+
+    const tokenizationCreated = await this.tokenizationService.create({ ...creditCardDto, token: creditCardToken, token_jwt: jwtToken })
+    
+    log("Creado en mongo", { tokenizationCreated })
+    return tokenizationCreated.id;
   }
-  async getCreditCard(token: string) {
-    const result = await this.jwtService.verify<IToken>(token);
+  async getCreditCard(pkToken: string) {
+    const findTokenization = await this.tokenizationService.getById(pkToken)
+    const result = await this.jwtService.verify<IToken>(findTokenization.token_jwt);
     let creditCard = this.criptoService.decrypt<CreditCardDto>(result.token);
     creditCard = this.deleteAtributes(creditCard);
     return creditCard;

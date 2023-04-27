@@ -3,6 +3,10 @@ import { Tokenization } from '../../../../domain/entitys/tokenization';
 
 const nameSchema = "Token";
 const tokenizationSchema = new Schema<Tokenization>({
+  token_jwt: {
+    type: String,
+    required: [true, 'El token_jwt es obligatorio'],
+  },
   token: {
     type: String,
     required: [true, 'El token es obligatorio'],

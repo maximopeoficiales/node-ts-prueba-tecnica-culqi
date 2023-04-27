@@ -24,6 +24,7 @@ export class TokenizationRepository {
   };
 
   async getById(id: string) {
-    return await TokenizationModel.findById(id);
+    const result = await TokenizationModel.findById(id);
+    return result
   };
 }

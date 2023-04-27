@@ -24,6 +24,8 @@ export class TokenizationService {
   };
 
   async getById(id: string) {
-    return await this.tokenizationService.getById(id);
+    const result = await this.tokenizationService.getById(id);
+    if(!result) throw new Error("Token no encontrado")
+    return result;
   };
 }

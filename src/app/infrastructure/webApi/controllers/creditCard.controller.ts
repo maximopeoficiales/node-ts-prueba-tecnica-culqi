@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { CreditCardService, } from "../../../application/use_cases/creditCard.service";
 import { CreditCardDto } from "../../../domain/dtos/creditCard.dto";
 import { log } from "../../shared/log";
+import { config } from "../../../../config";
 
 
 export class CreditCardController {
@@ -17,15 +18,15 @@ export class CreditCardController {
         const data = req.body as CreditCardDto;
         log(`Tokenizando`, { creditCard: data });
         let token = await this.creditCardService.tokenizate(data);
-        token = `pk_test_${token}`
+        token = `${config.APP_PREFIX_PK_TOKEN}${token}`
         res.json({ token })
     }
     async getCreditCard(req: Request, res: Response) {
-        let token = req.header("Authorization").replace("Bearer ", "");
-        token = token.replace("pk_test_", "");
+        let pkToken = req.header("Authorization").replace("Bearer ", "");
+        pkToken = pkToken.replace(config.APP_PREFIX_PK_TOKEN, "");
         // const token = req.body.pk_token;
-        log(`Token: ${token}`)
-        const result = await this.creditCardService.getCreditCard(token);
+        log(`Token: ${pkToken}`)
+        const result = await this.creditCardService.getCreditCard(pkToken);
         log({ creditCard: result })
         res.json({ result })
     }
