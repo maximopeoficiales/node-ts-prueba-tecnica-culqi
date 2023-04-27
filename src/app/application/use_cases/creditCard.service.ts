@@ -19,7 +19,7 @@ export class CreditCardService {
   async tokenizate(creditCardDto: CreditCardDto) {
     const creditCardToken = this.criptoService.encrypt<CreditCardDto>(creditCardDto);
     log(`Encriptacion: `, { creditCardToken });
-    const tokenizationCreated = this.tokenizationService.create({ ...creditCardDto, token: creditCardToken })
+    const tokenizationCreated = await this.tokenizationService.create({ ...creditCardDto, token: creditCardToken })
     log("Creado en mongo", { tokenizationCreated })
     const jwtToken = this.jwtService.sign<IToken>({ token: creditCardToken }, { expiresIn: config.APP_SECRET_JWT_LIMIT });
     log(`TokenJWT: `, { jwtToken });
