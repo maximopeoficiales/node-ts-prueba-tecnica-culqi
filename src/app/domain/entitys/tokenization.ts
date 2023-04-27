@@ -5,7 +5,8 @@ export class Tokenization {
   cvv: string;
   card_number: string;
   token: string;
-  pk_token: string;
   type_card: string;
   state?: boolean;
+  createdAt?:Date;
+  updatedAt?:Date;
 }

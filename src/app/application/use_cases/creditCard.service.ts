@@ -16,6 +16,15 @@ export class CreditCardService {
   ) {
 
   }
+  deleteAtributes(creditCard: CreditCardDto) {
+    delete creditCard.cvv
+    delete creditCard.type_card
+    return creditCard;
+  }
+
+  async getTokens(){
+    return await this.tokenizationService.getAll();
+  }
   async tokenizate(creditCardDto: CreditCardDto) {
     const creditCardToken = this.criptoService.encrypt<CreditCardDto>(creditCardDto);
     log(`Encriptacion: `, { creditCardToken });
@@ -27,10 +36,8 @@ export class CreditCardService {
   }
   async getCreditCard(token: string) {
     const result = await this.jwtService.verify<IToken>(token);
-    const creditCard = this.criptoService.decrypt<CreditCardDto>(result.token);
-    delete creditCard.cvv
-    delete creditCard.pk_token
-    delete creditCard.type_card
+    let creditCard = this.criptoService.decrypt<CreditCardDto>(result.token);
+    creditCard = this.deleteAtributes(creditCard);
     return creditCard;
   }
 

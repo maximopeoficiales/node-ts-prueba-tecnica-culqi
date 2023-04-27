@@ -4,6 +4,5 @@ export class CreditCardDto {
   expiration_month: number;
   cvv: string;
   card_number: string;
-  pk_token: string;
   type_card: string;
 }

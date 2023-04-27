@@ -2,9 +2,9 @@ import { Tokenization } from "../../../domain/entitys/tokenization";
 import { TokenizationModel } from "./models/user.schema";
 
 export class TokenizationRepository {
-  constructor(){}
+  constructor() { }
   async getAll() {
-    return await TokenizationModel.find();
+    return await TokenizationModel.find().sort({ createdAt: -1 });
   };
 
   async create(data: Tokenization) {

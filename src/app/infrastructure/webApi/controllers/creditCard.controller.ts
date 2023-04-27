@@ -8,16 +8,22 @@ export class CreditCardController {
     constructor(
         private creditCardService = new CreditCardService(),
     ) { }
-
+    async getTokens(req: Request, res: Response) {
+        const tokens = await this.creditCardService.getTokens();
+        res.json({ tokens });
+    }
+    // ejemplo de pk_test
     async tokenize(req: Request, res: Response) {
         const data = req.body as CreditCardDto;
         log(`Tokenizando`, { creditCard: data });
-        const token = await this.creditCardService.tokenizate(data);
+        let token = await this.creditCardService.tokenizate(data);
+        token = `pk_test_${token}`
         res.json({ token })
     }
     async getCreditCard(req: Request, res: Response) {
-        // const token = req.header("Authorization").replace("Bearer ", "");
-        const token = req.body.token;
+        let token = req.header("Authorization").replace("Bearer ", "");
+        token = token.replace("pk_test_", "");
+        // const token = req.body.pk_token;
         log(`Token: ${token}`)
         const result = await this.creditCardService.getCreditCard(token);
         log({ creditCard: result })

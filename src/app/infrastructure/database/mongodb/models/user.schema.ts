@@ -3,10 +3,6 @@ import { Tokenization } from '../../../../domain/entitys/tokenization';
 
 const nameSchema = "Token";
 const tokenizationSchema = new Schema<Tokenization>({
-  pk_token: {
-    type: String,
-    required: [true, 'El nombre es obligatorio'],
-  },
   token: {
     type: String,
     required: [true, 'El token es obligatorio'],
@@ -35,11 +31,13 @@ const tokenizationSchema = new Schema<Tokenization>({
     type: String,
     required: [true, 'La cvv es obligatorio'],
   },
+
   state: {
     type: Boolean,
     default: true,
   },
-
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
 });
 
 export const TokenizationModel = model(nameSchema, tokenizationSchema);
