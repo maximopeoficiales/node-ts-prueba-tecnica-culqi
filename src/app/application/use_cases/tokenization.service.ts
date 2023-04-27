@@ -1,15 +1,29 @@
-import CryptoJS from "crypto-js";
+import { Tokenization } from "../../domain/entitys/tokenization";
+import { TokenizationRepository } from "../../infrastructure/database/mongodb/tokenization.repository";
 
 export class TokenizationService {
   constructor(
-    private privateKey: string = "PRIVATE_KEY"
+    private tokenizationService = new TokenizationRepository(),
   ) { }
-  encrypt<T>(data: T) {
-    return CryptoJS.AES.encrypt(JSON.stringify(data), this.privateKey).toString();
-  }
-  decrypt<T>(ciphertext: string) {
-    const bytes = CryptoJS.AES.decrypt(ciphertext, this.privateKey);
-    const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    return decryptedData as T;
-  }
+  async getAll() {
+    return await this.tokenizationService.getAll();
+  };
+
+  async create(data: Tokenization) {
+    return await this.tokenizationService.create(data);
+  };
+
+  async updateById(id: string, data: Tokenization) {
+    const updated = await this.tokenizationService.updateById(id, data);
+    return updated;
+  };
+
+  async deleteById(id: string) {
+    const result = await this.tokenizationService.deleteById(id)
+    return result;
+  };
+
+  async getById(id: string) {
+    return await this.tokenizationService.getById(id);
+  };
 }

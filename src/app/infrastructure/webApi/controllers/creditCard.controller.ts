@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CreditCardService, } from "../../../application/use_cases/creditCard.service";
-import { CreditCardDto } from "../../../domain/dtos/credit-card.dto";
+import { CreditCardDto } from "../../../domain/dtos/creditCard.dto";
 import { log } from "../../shared/log";
 
 
@@ -12,8 +12,8 @@ export class CreditCardController {
     async tokenize(req: Request, res: Response) {
         const data = req.body as CreditCardDto;
         log(`Tokenizando`, { creditCard: data });
-        const result = await this.creditCardService.tokenizate(data);
-        res.json({ result })
+        const token = await this.creditCardService.tokenizate(data);
+        res.json({ token })
     }
     async getCreditCard(req: Request, res: Response) {
         // const token = req.header("Authorization").replace("Bearer ", "");
