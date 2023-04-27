@@ -10,14 +10,12 @@ export class CreditCardController {
         const data = req.body as CreditCardDto;
         const result = await this.creditCardService.tokenizate(data);
         res.json({ result })
-        // const employes = await employesService.getEmployees();
-
-        // if (employes) {
-        //     return res.status(HttpStatusCode.OK).json(employes);
-        // } else {
-        //     throw new ErrorResponse(HttpStatusCode.NOT_FOUND, "Employees not found");
-        // }throw new ErrorResponse(HttpStatusCode.NOT_FOUND, "Employees not found");
-
+    }
+    async getCreditCard(req: Request, res: Response) {
+        const token = req.header("Authorization").replace("Bearer ", "");
+        console.log({ token });
+        const data = await this.creditCardService.getCreditCard(token);
+        res.json({ data })
     }
 }
 

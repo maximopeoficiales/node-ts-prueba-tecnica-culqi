@@ -5,13 +5,15 @@ export class JwtService {
     private secretKey: string = "PRIVATE_KEY",
   ) { }
 
-  verify<T>(token: string) {
-    JWT.verify(token, this.secretKey, (err: JWT.VerifyErrors, payload: T) => {
-      if (err) {
-        throw new Error(err.message);
-      }
-      return payload
-    });
+  verify<T>(token: string): Promise<T> {
+    return new Promise((resolve, reject) => {
+      JWT.verify(token, this.secretKey, (err: JWT.VerifyErrors, payload: T) => {
+        if (err) {
+          reject(err)
+        }
+        resolve(payload)
+      });
+    })
   }
 
   sign<T>(data: T | any, options: JWT.SignOptions = null) {

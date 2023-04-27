@@ -8,7 +8,7 @@ export class TokenizationService {
     return CryptoJS.AES.encrypt(JSON.stringify(data), this.privateKey).toString();
   }
   decrypt<T>(ciphertext: string) {
-    const bytes = CryptoJS.AES.decrypt(ciphertext, 'secret key 123');
+    const bytes = CryptoJS.AES.decrypt(ciphertext, this.privateKey);
     const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
     return decryptedData as T;
   }

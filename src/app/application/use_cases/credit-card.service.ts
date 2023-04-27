@@ -19,6 +19,12 @@ export class CreditCardService {
     const token = this.jwtService.sign<IToken>({ token: creditCardToken }, { expiresIn: config.APP_SECRET_JWT_LIMIT });
     return token;
   }
+  async getCreditCard(token: string) {
+    const result = await this.jwtService.verify<IToken>(token);
+    const creditCard = this.criptoService.decrypt<CreditCardDto>(result.token);
+    delete creditCard.cvv
+    return creditCard;
+  }
 
   // tokenizate(creditCardDto: CreditCardDto) {
   //   return this.cripto.encrypt<CreditCardDto>(creditCardDto);
