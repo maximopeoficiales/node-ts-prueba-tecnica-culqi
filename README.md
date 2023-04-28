@@ -5,26 +5,34 @@
 
 > API con el proposito de tokenizar tarjeta de credito asi como validar la estructura de la misma
 
-## Install
+## Instalacion y Ejecucion con Docker Compose
+Es necesario tener instalado
+* Docker
+* Docker Compose
 
 ```sh
-yarn install
+docker-compose up
 ```
 
-## Usage
+## Uso en modo desarrollo
+Es necesario tener instalado
+* MongoDB
+* NodeJS
+
+Por otro tambien debe duplicar el archivo **.env-template** y renombrarlo como **.env**
+Luego debe modificar la variable **MONGODB_URI** con el valor de la url de conexion de su instalacion local de mongoDB 
+```sh
+npm run dev
+```
+
+## Ejecutar Test
 
 ```sh
-yarn run dev
+npm run test
 ```
+## Demostracion
 
-## Run tests
-
-```sh
-yarn run test
-```
-## Demo
-
-Se le envia al endpoint POST **/api/v1/creditCard/sign** los siguientes datos 
+Se le envia al endpoint POST **/api/v1/creditCard/sign** los siguientes datos en le body
 ```json
 {
     "email": "maximopeoficiales@yahoo.es",
@@ -34,10 +42,11 @@ Se le envia al endpoint POST **/api/v1/creditCard/sign** los siguientes datos
     "card_number": "4111111111111111"
 }
 ```
-
+![Token de Tarjeta de Credito](https://github.com/maximopeoficiales/node-ts-prueba-tecnica-culqi/blob/master/imgs/sign.png?raw=true)
 
 Ahora usamos el metodo POST **/api/v1/creditCard/verify**
 y enviamos el token por el Header de tipo Bearer
+![Verificacion de Token](https://github.com/maximopeoficiales/node-ts-prueba-tecnica-culqi/blob/master/imgs/verify.png?raw=true)
 
 
 ## Author
