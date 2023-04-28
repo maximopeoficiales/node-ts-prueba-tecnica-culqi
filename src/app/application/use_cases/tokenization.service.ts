@@ -25,7 +25,7 @@ export class TokenizationService {
 
   async getById(id: string) {
     const result = await this.tokenizationService.getById(id);
-    if(!result) throw new Error("Token no encontrado")
+    if(!result) throw new Error(`Token con ${id} no encontrado`)
     return result;
   };
 }

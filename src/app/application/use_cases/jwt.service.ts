@@ -9,7 +9,7 @@ export class JwtService {
     return new Promise((resolve, reject) => {
       JWT.verify(token, this.secretKey, (err: JWT.VerifyErrors, payload: T) => {
         if (err) {
-          reject(err)
+          throw new Error(`Fallo en la veficacion del token razon: ${err.message}`)
         }
         resolve(payload)
       });

@@ -1,8 +1,8 @@
 import { config } from "../../../config";
 import { CreditCardDto } from "../../domain/dtos/creditCard.dto";
 import { log } from "../../infrastructure/shared/log";
-import { JwtService } from "./jwt.service";
 import { CriptoService } from "./cripto.service";
+import { JwtService } from "./jwt.service";
 import { TokenizationService } from "./tokenization.service";
 
 interface IToken {
@@ -34,7 +34,7 @@ export class CreditCardService {
 
     const tokenizationCreated = await this.tokenizationService.create({ ...creditCardDto, token: creditCardToken, token_jwt: jwtToken })
     
-    log("Creado en mongo", { tokenizationCreated })
+    log("Token Creado", { tokenizationCreated })
     return tokenizationCreated.id;
   }
   async getCreditCard(pkToken: string) {
@@ -44,9 +44,5 @@ export class CreditCardService {
     creditCard = this.deleteAtributes(creditCard);
     return creditCard;
   }
-
-  // tokenizate(creditCardDto: CreditCardDto) {
-  //   return this.cripto.encrypt<CreditCardDto>(creditCardDto);
-  // }
 
 }

@@ -10,19 +10,12 @@ services:
     ports:
       - "3001:3001"
     depends_on:
-      - redis
       - mongodb
     environment:
-      REDIS_HOST: redis
       MONGODB_URI: mongodb://mongodb:27017/culqi
     volumes:
       - mongodb_data:/data/db
       - .:/srv/app
-  redis:
-    container_name: redis
-    image: redis:latest
-    ports:
-      - "6379:6379"
   mongodb:
     container_name: mongodb
     image: mongo:latest
