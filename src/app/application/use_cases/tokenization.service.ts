@@ -1,5 +1,5 @@
 import { Tokenization } from "../../domain/entitys/tokenization";
-import { TokenizationRepository } from "../../infrastructure/database/mongodb/tokenization.repository";
+import { TokenizationRepository } from "../../infrastructure/database/tokenization.repository";
 
 export class TokenizationService {
   constructor(

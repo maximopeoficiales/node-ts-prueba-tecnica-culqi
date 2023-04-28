@@ -1,5 +1,5 @@
-import { Tokenization } from "../../../domain/entitys/tokenization";
-import { TokenizationModel } from "./models/user.schema";
+import { Tokenization } from "../../domain/entitys/tokenization";
+import { TokenizationModel } from "./mongodb/models/user.schema";
 
 export class TokenizationRepository {
   constructor() { }

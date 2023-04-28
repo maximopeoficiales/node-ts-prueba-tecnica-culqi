@@ -10,7 +10,8 @@
     "clean": "rm -rf dist",
     "build": "tsc",
     "start": "node dist",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "scanner": "docker run -e SONAR_HOST_URL=\"http://sonarqube:9000\" --network=\"sonar-cloud_sonarnet\" --user=\"$(id -u):$(id -g)\" -it -v \"$PWD:/usr/src\" sonarsource/sonar-scanner-cli"
   },
   "author": "",
   "license": "ISC",

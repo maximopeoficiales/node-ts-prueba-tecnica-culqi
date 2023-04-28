@@ -25,7 +25,7 @@ export const creditCardBodySchema = {
     // validacion con el algoritmo luhn
     card_number: Joi.string().trim().min(13).max(16).required()
       .custom((value, helper) => {
-        return luhn.validate(value) ? true : helper.error("any.invalid");
+        return luhn.validate(value) ? value : helper.error("any.invalid");
       })
       .label("El campo card_number es requerido y debe cumplir con el formato establecido"),
   })

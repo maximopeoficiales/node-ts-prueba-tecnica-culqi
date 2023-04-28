@@ -1,6 +1,7 @@
 import { CardType } from "../../domain/enums/card-type.enum";
 
 export const detectCardType = (cardNumber: string) => {
+  cardNumber= cardNumber.trim()
   // Visa
   const visaRegEx = /^4[0-9]{12}(?:[0-9]{3})?$/;
   // Mastercard
