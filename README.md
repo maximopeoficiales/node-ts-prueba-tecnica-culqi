@@ -22,6 +22,7 @@ Es necesario tener instalado
 Por otro tambien debe duplicar el archivo **.env-template** y renombrarlo como **.env**
 Luego debe modificar la variable **MONGODB_URI** con el valor de la url de conexion de su instalacion local de mongoDB 
 ```sh
+npm run install
 npm run dev
 ```
 
