@@ -1,6 +1,7 @@
 import JWT from "jsonwebtoken";
+import { IJwtService } from "../contracts/jwtService.interface";
 
-export class JwtService {
+export class JwtService implements IJwtService {
   constructor(
     private secretKey: string = "PRIVATE_KEY",
   ) { }

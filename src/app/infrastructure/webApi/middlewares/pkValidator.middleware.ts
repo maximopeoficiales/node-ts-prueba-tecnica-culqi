@@ -15,7 +15,6 @@ export const pkValidator = (req: Request, res: Response, next: NextFunction) => 
 }
 
 export const isValidPk = (value: string) => {
-  // TODO: Algoritmo de formato
   const regex = /^pk_test/;
   if (regex.test(value)) {
     const objectId = value.replace(config.APP_PREFIX_PK_TOKEN, "");

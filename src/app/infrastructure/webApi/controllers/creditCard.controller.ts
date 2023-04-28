@@ -26,7 +26,7 @@ export class CreditCardController {
             token = `${config.APP_PREFIX_PK_TOKEN}${token}`
             res.json({ token })
         } catch (error) {
-
+            next(error)
         }
     }
     async getCreditCard(req: Request, res: Response, next: NextFunction) {

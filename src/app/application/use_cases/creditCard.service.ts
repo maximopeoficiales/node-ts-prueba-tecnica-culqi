@@ -1,6 +1,7 @@
 import { config } from "../../../config";
 import { CreditCardDto } from "../../domain/dtos/creditCard.dto";
 import { log } from "../../infrastructure/shared/log";
+import { ICreditCardService } from "../contracts/creditCardService.interface";
 import { CriptoService } from "./cripto.service";
 import { JwtService } from "./jwt.service";
 import { TokenizationService } from "./tokenization.service";
@@ -8,7 +9,7 @@ import { TokenizationService } from "./tokenization.service";
 interface IToken {
   token: string
 }
-export class CreditCardService {
+export class CreditCardService implements ICreditCardService {
   constructor(
     private criptoService = new CriptoService(config.APP_SECRET_KEY_TOKENIZATION),
     private jwtService = new JwtService(config.APP_SECRET_KEY_JWT),
@@ -16,25 +17,25 @@ export class CreditCardService {
   ) {
 
   }
-  deleteAtributes(creditCard: CreditCardDto) {
-    delete creditCard.cvv
-    delete creditCard.type_card
-    return creditCard;
+  deleteAtributes(creditCardDto: CreditCardDto) {
+    delete creditCardDto.cvv
+    delete creditCardDto.type_card
+    return creditCardDto;
   }
 
   async getTokens() {
     return await this.tokenizationService.getAll();
   }
   async tokenizate(creditCardDto: CreditCardDto) {
-    const creditCardToken = this.criptoService.encrypt<CreditCardDto>(creditCardDto);
-    log(`Encriptacion: `, { creditCardToken });
+    const creditCardEncript = this.criptoService.encrypt<CreditCardDto>(creditCardDto);
+    log(`Tarjeta de credito encriptada: `, { creditCardEncript });
 
-    const jwtToken = this.jwtService.sign<IToken>({ token: creditCardToken }, { expiresIn: config.APP_SECRET_JWT_LIMIT });
-    log(`TokenJWT: `, { jwtToken });
+    const jwtToken = this.jwtService.sign<IToken>({ token: creditCardEncript }, { expiresIn: config.APP_SECRET_JWT_LIMIT });
+    log(`Token JWT: `, { jwtToken });
 
-    const tokenizationCreated = await this.tokenizationService.create({ ...creditCardDto, token: creditCardToken, token_jwt: jwtToken })
-    
-    log("Token Creado", { tokenizationCreated })
+    const tokenizationCreated = await this.tokenizationService.create({ ...creditCardDto, token: creditCardEncript, token_jwt: jwtToken })
+    log("Tokenizacion Creada", { tokenizationCreated })
+
     return tokenizationCreated.id;
   }
   async getCreditCard(pkToken: string) {

@@ -1,6 +1,7 @@
 import CryptoJS from "crypto-js";
+import { ICriptoService } from "../contracts/criptoService.interface";
 
-export class CriptoService {
+export class CriptoService implements ICriptoService {
   constructor(
     private privateKey: string = "PRIVATE_KEY"
   ) { }
