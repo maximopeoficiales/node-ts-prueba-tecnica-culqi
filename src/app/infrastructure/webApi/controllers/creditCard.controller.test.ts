@@ -63,7 +63,6 @@ describe("Test CreditCardController", () => {
         const res = httpMocks.createResponse();
         const next = jest.fn()
         await instanceMock.getCreditCard(req, res, next)
-        console.log(res._getJSONData());
         expect(res._getJSONData()).toEqual({ result: getCreditCardResultMock });
     });
     it("getCreditCard method with error", async () => {

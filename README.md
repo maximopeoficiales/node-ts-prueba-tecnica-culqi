@@ -32,6 +32,7 @@ npm run dev
 npm run test
 ```
 ## Demostracion
+Si desea probar la aplicacion por postman de manera rapida puede importar el archivo **qulqi_postman.json** en su postman local.
 
 Se le envia al endpoint POST **/api/v1/creditCard/sign** los siguientes datos en le body
 ```json

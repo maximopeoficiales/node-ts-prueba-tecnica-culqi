@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "a9b17642-6f25-4a4f-b448-7e4f3d5af551",
+		"name": "Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10563842"
+	},
+	"item": [
+		{
+			"name": "Tokenize",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"maximopeoficiales@yahoo.es\",\n    \"expiration_year\": \"2020\",\n    \"expiration_month\": \"12\",\n    \"cvv\": \"4552\",\n    \"card_number\": \"371151413398514\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/creditCard/sign",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"creditCard",
+						"sign"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tokens",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/creditCard/getTokens",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"creditCard",
+						"getTokens"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get CreditCard",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "pk_test_644c088f7ba4929f44124385",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IlUyRnNkR1ZrWDEvZ2F4clJPTFpjMGpHdzF6U0o3aFczSW1nV0RaMmtqSjlPYkRnL29meU1lT29YRk9CR1pRNTJzRFRzRDEzaUV0azhlb1hwNzJ6YVR1UUNQQXdaMmV6L0F5RXJpNTU3MkhobWtDM3hGTTVUWVpNWkQ0am5TRXdrMXpTTWJSUWxEeFhveGlXUGRyTERNL1JORm5HSkN0SmZZTmJSUit4UnZOMGxmbmRJTW9Nd2gyb3pwVUo1aGUwcCIsImlhdCI6MTY4MjU1OTQxNSwiZXhwIjoxNjgyNjQ1ODE1fQ.ci2j7h4Un_q0H6NFJaatzOriaR2CcksBe1wXMoqho2Y",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/creditCard/verify",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"creditCard",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

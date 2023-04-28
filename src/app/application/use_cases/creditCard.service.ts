@@ -2,6 +2,7 @@ import { config } from "../../../config";
 import { CreditCardDto } from "../../domain/dtos/creditCard.dto";
 import { log } from "../../infrastructure/shared/log";
 import { ICreditCardService } from "../contracts/creditCardService.interface";
+import { IJwtService } from "../contracts/jwtService.interface";
 import { CriptoService } from "./cripto.service";
 import { JwtService } from "./jwt.service";
 import { TokenizationService } from "./tokenization.service";
@@ -12,7 +13,7 @@ interface IToken {
 export class CreditCardService implements ICreditCardService {
   constructor(
     private criptoService = new CriptoService(config.APP_SECRET_KEY_TOKENIZATION),
-    private jwtService = new JwtService(config.APP_SECRET_KEY_JWT),
+    private jwtService : IJwtService= new JwtService(config.APP_SECRET_KEY_JWT),
     private tokenizationService = new TokenizationService()
   ) {
 
@@ -39,11 +40,11 @@ export class CreditCardService implements ICreditCardService {
   }
   async getCreditCard(id: string) {
     const findTokenization = await this.tokenizationService.findById(id)
-    console.log({ findTokenization });
+    log({ findTokenization });
 
     const creditCardDecripted = await this.jwtService.verify<IToken>(findTokenization.token_jwt);
     let creditCard = this.criptoService.decrypt<CreditCardDto>(creditCardDecripted.token);
-    console.log({ creditCard });
+    log({ creditCard });
 
     creditCard = this.deleteAtributes(creditCard);
     return creditCard;

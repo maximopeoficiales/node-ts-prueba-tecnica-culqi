@@ -1,4 +1,3 @@
-import { CreditCardDto } from "../../domain/dtos/creditCard.dto";
 import { CardType } from "../../domain/enums/card-type.enum";
 import { CreditCardService } from "./creditCard.service";
 import { CriptoService } from "./cripto.service";
