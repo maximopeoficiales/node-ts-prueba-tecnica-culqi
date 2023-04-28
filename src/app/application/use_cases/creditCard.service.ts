@@ -29,23 +29,22 @@ export class CreditCardService implements ICreditCardService {
   async tokenizate(creditCardDto: CreditCardDto) {
     const creditCardEncript = this.criptoService.encrypt<CreditCardDto>(creditCardDto);
     log(`Tarjeta de credito encriptada: `, { creditCardEncript });
-    
+
     const jwtToken = this.jwtService.sign<IToken>({ token: creditCardEncript }, { expiresIn: config.APP_SECRET_JWT_LIMIT });
     log(`Token JWT: `, { jwtToken });
 
     const tokenizationCreated = await this.tokenizationService.create({ ...creditCardDto, token: creditCardEncript, token_jwt: jwtToken })
     log("Tokenizacion Creada", { tokenizationCreated })
-
-    return tokenizationCreated.id;
+    return `${config.APP_PREFIX_PK_TOKEN}${tokenizationCreated.id}`;
   }
-  async getCreditCard(pkToken: string) {
-    const findTokenization = await this.tokenizationService.getById(pkToken)
-    console.log({findTokenization});
-    
+  async getCreditCard(id: string) {
+    const findTokenization = await this.tokenizationService.findById(id)
+    console.log({ findTokenization });
+
     const creditCardDecripted = await this.jwtService.verify<IToken>(findTokenization.token_jwt);
     let creditCard = this.criptoService.decrypt<CreditCardDto>(creditCardDecripted.token);
-    console.log({creditCard});
-    
+    console.log({ creditCard });
+
     creditCard = this.deleteAtributes(creditCard);
     return creditCard;
   }

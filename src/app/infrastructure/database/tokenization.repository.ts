@@ -2,29 +2,19 @@ import { Tokenization } from "../../domain/entitys/tokenization";
 import { TokenizationModel } from "./mongodb/models/user.schema";
 
 export class TokenizationRepository {
-  constructor() { }
+  constructor(
+    private model = TokenizationModel
+  ) { }
   async getAll() {
-    return await TokenizationModel.find().sort({ createdAt: -1 });
+    return await this.model.find().sort({ createdAt: -1 });
   };
-
   async create(data: Tokenization) {
-    const newUser = new TokenizationModel(data);
+    const newUser = new this.model(data);
     await newUser.save();
     return newUser;
   };
-
-  async updateById(id: string, data: Tokenization) {
-    const updated = await TokenizationModel.findByIdAndUpdate(id, data, { new: true });
-    return updated;
-  };
-
-  async deleteById(id: string) {
-    const result = await TokenizationModel.findByIdAndDelete(id)
-    return result;
-  };
-
-  async getById(id: string) {
-    const result = await TokenizationModel.findById(id);
+  async findById(id: string) {
+    const result = await this.model.findById(id);
     return result
   };
 }

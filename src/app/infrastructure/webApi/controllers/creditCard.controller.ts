@@ -18,12 +18,11 @@ export class CreditCardController {
         }
     }
     // ejemplo de pk_test
-    async tokenize(req: Request, res: Response, next: NextFunction) {
+    async tokenizate(req: Request, res: Response, next: NextFunction) {
         try {
             const data = req.body as CreditCardDto;
             log(`Tokenizando`, { creditCard: data });
             let token = await this.creditCardService.tokenizate(data);
-            token = `${config.APP_PREFIX_PK_TOKEN}${token}`
             res.json({ token })
         } catch (error) {
             next(error)

@@ -6,6 +6,6 @@ import { pkValidator } from "../middlewares/pkValidator.middleware";
 export const router = Router();
 
 router.get("/getTokens", creditCardController.getTokens.bind(creditCardController));
-router.post("/sign", getCardType, creditCardValidator(), creditCardController.tokenize.bind(creditCardController));
+router.post("/sign", getCardType, creditCardValidator(), creditCardController.tokenizate.bind(creditCardController));
 router.post("/verify", pkValidator, creditCardController.getCreditCard.bind(creditCardController));
 
