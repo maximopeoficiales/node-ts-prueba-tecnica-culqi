@@ -11,6 +11,9 @@ import { TokenizationService } from "./tokenization.service";
 interface IToken {
   token: string
 }
+// https://refactoring.guru/es/design-patterns/strategy
+// https://refactoring.guru/es/design-patterns/strategy/typescript/example
+// Strategy es un patrón de diseño de comportamiento que te permite definir una familia de algoritmos, colocar cada uno de ellos en una clase separada y hacer sus objetos intercambiables.
 export class CreditCardService implements ICreditCardService {
   constructor(
     private criptoService: ICriptoService = new CriptoService(config.APP_SECRET_KEY_TOKENIZATION),

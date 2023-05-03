@@ -9,3 +9,4 @@ router.get("/getTokens", creditCardController.getTokens.bind(creditCardControlle
 router.post("/sign", getCardType, creditCardValidator(), creditCardController.tokenizate.bind(creditCardController));
 router.post("/verify", pkValidator, creditCardController.getCreditCard.bind(creditCardController));
 
+// El uso más simple de bind() es hacer que una función que, sin importar cómo es llamada, siempre apunte al mismo objeto con la referencia this.

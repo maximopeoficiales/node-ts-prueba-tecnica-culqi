@@ -1,8 +1,12 @@
 import CryptoJS from "crypto-js";
 import { ICriptoService } from "../contracts/criptoService.interface";
 
-// https://refactoring.guru/es/design-patterns/factory-method
 // https://refactoring.guru/es/design-patterns/abstract-factory
+// https://refactoring.guru/es/design-patterns/abstract-factory/typescript/example
+// Abstract Factory es un patrón de diseño creacional que nos permite producir familias de objetos relacionados sin especificar sus clases concretas.
+// https://refactoring.guru/es/design-patterns/adapter
+// https://refactoring.guru/es/design-patterns/adapter/typescript/example
+// Adapter es un patrón de diseño estructural que permite la colaboración entre objetos con interfaces incompatibles.
 export class CriptoService implements ICriptoService {
   constructor(
     private privateKey: string = "PRIVATE_KEY"
