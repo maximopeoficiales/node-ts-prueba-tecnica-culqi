@@ -6,8 +6,9 @@ COPY package.json ./
 COPY tsconfig.json ./
 COPY nodemon.json ./
 COPY src ./src
-
+# // @SONAR_STOP@
 RUN npm install
+# // @SONAR_START@
 RUN npm run build
 EXPOSE 3001
 USER nonroot
