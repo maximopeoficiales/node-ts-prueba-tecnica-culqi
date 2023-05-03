@@ -2,6 +2,7 @@ import { config } from "../../../config";
 import { CreditCardDto } from "../../domain/dtos/creditCard.dto";
 import { log } from "../../infrastructure/shared/log";
 import { ICreditCardService } from "../contracts/creditCardService.interface";
+import { ICriptoService } from "../contracts/criptoService.interface";
 import { IJwtService } from "../contracts/jwtService.interface";
 import { CriptoService } from "./cripto.service";
 import { JwtService } from "./jwt.service";
@@ -12,8 +13,8 @@ interface IToken {
 }
 export class CreditCardService implements ICreditCardService {
   constructor(
-    private criptoService = new CriptoService(config.APP_SECRET_KEY_TOKENIZATION),
-    private jwtService : IJwtService= new JwtService(config.APP_SECRET_KEY_JWT),
+    private criptoService: ICriptoService = new CriptoService(config.APP_SECRET_KEY_TOKENIZATION),
+    private jwtService: IJwtService = new JwtService(config.APP_SECRET_KEY_JWT),
     private tokenizationService = new TokenizationService()
   ) {
 
